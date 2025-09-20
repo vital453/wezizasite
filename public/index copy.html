@@ -192,7 +192,7 @@
                             Nous optimisons votre expérience client et maximisons la fidélisation grâce à des stratégies et des outils sur mesure.
                         </p>
                         <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                            <a href="#" class="bg-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors text-center">
+                            <a href="#"  id="open-modal-button" class="bg-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors text-center">
                                 Demander une démo
                             </a>
                             <a href="#" class="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-6 rounded-md transition-colors text-center">
@@ -533,6 +533,72 @@
         </div>
     </footer>
 
+    <!-- =============================================== -->
+<!--            MODALE / TUNNEL DE VENTE             -->
+<!-- =============================================== -->
+<div id="demo-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[1001]">
+    <!-- Conteneur de la modale -->
+    <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl relative transform transition-all">
+        
+        <!-- Bouton de fermeture -->
+        <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800">
+            <i class="fa-solid fa-times text-2xl"></i>
+        </button>
+
+        <!-- Contenu -->
+        <h2 class="text-2xl font-bold text-gray-900">Demander une démo</h2>
+        <p class="mt-2 text-gray-600">Laissez-nous vos informations et nous vous recontacterons dans les plus brefs délais.</p>
+        
+        <!-- Formulaire -->
+        <!-- L'attribut 'action' sera rempli à l'étape 3 -->
+        <form action="https://formspree.io/f/mandrkpb" method="POST" class="mt-6 space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
+                    <input type="text" name="prenom" id="prenom" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                </div>
+                <div>
+                    <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
+                    <input type="text" name="nom" id="nom" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                </div>
+            </div>
+            
+            <div>
+                <label for="entreprise" class="block text-sm font-medium text-gray-700">Nom de l’entreprise</label>
+                <input type="text" name="entreprise" id="entreprise" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                </div>
+                <div>
+                    <label for="telephone" class="block text-sm font-medium text-gray-700">Numéro de contact</label>
+                    <input type="tel" name="telephone" id="telephone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                </div>
+            </div>
+
+            <div>
+                <label for="besoin" class="block text-sm font-medium text-gray-700">Besoin principal</label>
+                <textarea name="besoin" id="besoin" rows="3" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" placeholder="Décrivez brièvement votre besoin..."></textarea>
+            </div>
+
+            <!-- CTA -->
+            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                <button type="submit" name="action" value="Etre recontacte" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-md transition-colors">
+                    Être recontacté
+                </button>
+                <button type="submit" name="action" value="Recevoir une proposition" class="w-full bg-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors">
+                    Recevoir une proposition
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
     <a href="#" class="btn floating-btn font-poppins">Faire un test SMS</a>
 
     <!-- JAVASCRIPT POUR LE MENU MOBILE -->
@@ -544,6 +610,45 @@
             mobileMenuButton.addEventListener('click', function () {
                 navLinks.classList.toggle('active');
             });
+
+            // --- GESTION DE LA MODALE / TUNNEL DE VENTE ---
+
+// Les éléments de la modale
+const modal = document.getElementById('demo-modal');
+const closeModalButton = document.getElementById('close-modal-button');
+
+// Les boutons qui ouvrent la modale
+const openModalButton = document.getElementById('open-modal-button');
+// const openModalButton2 = document.getElementById('open-modal-button-2'); // Décommentez si vous avez un 2ème bouton
+
+// Fonction pour ouvrir la modale
+function openModal(event) {
+    event.preventDefault(); // Empêche le lien de remonter en haut de page
+    modal.classList.remove('hidden');
+}
+
+// Fonction pour fermer la modale
+function closeModal() {
+    modal.classList.add('hidden');
+}
+
+// Assigner les événements
+if (openModalButton) {
+    openModalButton.addEventListener('click', openModal);
+}
+// if (openModalButton2) { // Décommentez si vous avez un 2ème bouton
+//     openModalButton2.addEventListener('click', openModal);
+// }
+if (closeModalButton) {
+    closeModalButton.addEventListener('click', closeModal);
+}
+
+// Fermer la modale en cliquant en dehors d'elle
+modal.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        closeModal();
+    }
+});
         });
     </script>
 </body>
