@@ -124,9 +124,10 @@
                     Nous optimisons votre expérience client et maximisons la fidélisation grâce à des stratégies et des outils sur mesure.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#contact" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                     <!-- === CORRECTION APPLIQUÉE ICI === -->
+                    <button id="open-modal-button" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
                         Demander une démo
-                    </a>
+                    </button>
                     <a href="#services" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
                         Découvrir nos services
                     </a>
@@ -728,129 +729,230 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
-   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        
-        // --- GESTION DU HEADER ET DU MENU MOBILE ---
-        const header = document.getElementById('header');
-        const logo = document.getElementById('logo');
-        const navLinks = document.getElementById('nav-links').getElementsByTagName('a');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuIcon = mobileMenuButton.querySelector('i');
-        const mobileMenu = document.getElementById('mobile-menu');
+        <!-- =============================================== -->
+    <!--            MODALE / TUNNEL DE VENTE             -->
+    <!-- =============================================== -->
+    <div id="demo-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[1001]">
+        <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl relative transform transition-all">
+            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800">
+                <i class="fa-solid fa-times text-2xl"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-gray-900">Demander une démo</h2>
+            <p class="mt-2 text-gray-600">Laissez-nous vos informations et nous vous recontacterons dans les plus brefs délais.</p>
+            <form action="https://formspree.io/f/mandrkpb" method="POST" class="mt-6 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
+                        <input type="text" name="prenom" id="prenom" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
+                        <input type="text" name="nom" id="nom" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                </div>
+                <div>
+                    <label for="entreprise" class="block text-sm font-medium text-gray-700">Nom de l’entreprise</label>
+                    <input type="text" name="entreprise" id="entreprise" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="telephone" class="block text-sm font-medium text-gray-700">Numéro de contact</label>
+                        <input type="tel" name="telephone" id="telephone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                </div>
+                <div>
+                    <label for="besoin" class="block text-sm font-medium text-gray-700">Besoin principal</label>
+                    <textarea name="besoin" id="besoin" rows="3" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" placeholder="Décrivez brièvement votre besoin..."></textarea>
+                </div>
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <button type="submit" name="action" value="Etre recontacte" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-md transition-colors">
+                        Être recontacté
+                    </button>
+                    <button type="submit" name="action" value="Recevoir une proposition" class="w-full bg-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors">
+                        Recevoir une proposition
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        function handleScroll() {
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-                logo.classList.remove('text-white');
-                logo.classList.add('text-gray-900');
-                mobileMenuButton.classList.remove('text-white');
-                mobileMenuButton.classList.add('text-gray-900');
-                for(let link of navLinks) {
-                    link.classList.add('text-gray-700', 'hover:text-primary');
-                    link.classList.remove('text-white');
-                }
-            } else {
-                header.classList.remove('header-scrolled');
-                logo.classList.add('text-white');
-                logo.classList.remove('text-gray-900');
-                mobileMenuButton.classList.add('text-white');
-                mobileMenuButton.classList.remove('text-gray-900');
-                 for(let link of navLinks) {
-                    link.classList.remove('text-gray-700', 'hover:text-primary');
-                    link.classList.add('text-white');
-                }
-            }
-        }
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
+   <!-- =============================================================== -->
+    <!-- SCRIPT COMPLET ET CORRIGÉ (à remplacer à la fin de votre page) -->
+    <!-- =============================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- GESTION DU HEADER ET DU MENU MOBILE ---
+            const header = document.getElementById('header');
+            const logo = document.getElementById('logo');
+            const navLinksDesktop = document.getElementById('nav-links')?.getElementsByTagName('a');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuIcon = mobileMenuButton?.querySelector('i');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuButton.addEventListener('click', function () {
-            const isMenuOpen = !mobileMenu.classList.contains('hidden');
-            mobileMenu.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden', !isMenuOpen);
-            mobileMenuIcon.classList.toggle('fa-bars', isMenuOpen);
-            mobileMenuIcon.classList.toggle('fa-times', !isMenuOpen);
-        });
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                 mobileMenu.classList.add('hidden');
-                 document.body.classList.remove('overflow-hidden');
-                 mobileMenuIcon.classList.remove('fa-times');
-                 mobileMenuIcon.classList.add('fa-bars');
-            });
-        });
-
-        // --- ANIMATIONS AU SCROLL ---
-        const elementsToAnimate = document.querySelectorAll('.fade-in-up');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        elementsToAnimate.forEach(element => {
-            observer.observe(element);
-        });
-
-        // --- COMPTEUR DYNAMIQUE ---
-        const counterElement = document.getElementById('counter');
-        if (counterElement) {
-            const animateCounter = (element) => {
-                const span = element.querySelector('span');
-                const target = +span.getAttribute('data-target');
-                if (!span || isNaN(target)) return;
-                let count = 0;
-                const duration = 1500;
-                const stepTime = Math.max(10, Math.floor(duration / target));
-                const timer = setInterval(() => {
-                    count++;
-                    span.textContent = count;
-                    if (count >= target) {
-                        span.textContent = target;
-                        clearInterval(timer);
+            function handleScroll() {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                    logo.classList.remove('text-white');
+                    logo.classList.add('text-gray-900');
+                    if (mobileMenuIcon) {
+                        mobileMenuIcon.classList.remove('text-white');
+                        mobileMenuIcon.classList.add('text-gray-900');
                     }
-                }, stepTime);
+                    if (navLinksDesktop) {
+                        for(let link of navLinksDesktop) {
+                            link.classList.add('text-gray-700', 'hover:text-primary');
+                            link.classList.remove('text-white');
+                        }
+                    }
+                } else {
+                    header.classList.remove('header-scrolled');
+                    logo.classList.add('text-white');
+                    logo.classList.remove('text-gray-900');
+                    if (mobileMenuIcon) {
+                        mobileMenuIcon.classList.add('text-white');
+                        mobileMenuIcon.classList.remove('text-gray-900');
+                    }
+                    if (navLinksDesktop) {
+                        for(let link of navLinksDesktop) {
+                            link.classList.remove('text-gray-700', 'hover:text-primary');
+                            link.classList.add('text-white');
+                        }
+                    }
+                }
             }
-            const counterObserver = new IntersectionObserver((entries, observer) => {
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function () {
+                    const isMenuOpen = !mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    document.body.classList.toggle('overflow-hidden', !isMenuOpen);
+                    if (mobileMenuIcon) {
+                        mobileMenuIcon.classList.toggle('fa-bars', isMenuOpen);
+                        mobileMenuIcon.classList.toggle('fa-times', !isMenuOpen);
+                    }
+                });
+            }
+            
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                     mobileMenu.classList.add('hidden');
+                     document.body.classList.remove('overflow-hidden');
+                     if (mobileMenuIcon) {
+                         mobileMenuIcon.classList.remove('fa-times');
+                         mobileMenuIcon.classList.add('fa-bars');
+                     }
+                });
+            });
+
+            // --- ANIMATIONS AU SCROLL ---
+            const elementsToAnimate = document.querySelectorAll('.fade-in-up');
+            const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        animateCounter(entry.target);
+                        entry.target.classList.add('is-visible');
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.5 });
-            counterObserver.observe(counterElement);
-        }
+            }, { threshold: 0.1 });
+            elementsToAnimate.forEach(element => {
+                observer.observe(element);
+            });
 
-        // --- GESTION DES ONGLETS DU BLOG ---
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
+            // --- COMPTEUR DYNAMIQUE ---
+            const counterElement = document.getElementById('counter');
+            if (counterElement) {
+                const animateCounter = (element) => {
+                    const span = element.querySelector('span');
+                    const target = +span.getAttribute('data-target');
+                    if (!span || isNaN(target)) return;
+                    let count = 0;
+                    const duration = 1500;
+                    const stepTime = Math.max(10, Math.floor(duration / target));
+                    const timer = setInterval(() => {
+                        count++;
+                        span.textContent = count;
+                        if (count >= target) {
+                            span.textContent = target;
+                            clearInterval(timer);
+                        }
+                    }, stepTime);
+                }
+                const counterObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                counterObserver.observe(counterElement);
+            }
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabName = button.getAttribute('data-tab');
-                // Mettre à jour les styles des boutons
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('border-primary', 'text-primary');
-                    btn.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+            // --- GESTION DES ONGLETS DU BLOG ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            if (tabButtons.length > 0 && tabContents.length > 0) {
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tabName = button.getAttribute('data-tab');
+                        tabButtons.forEach(btn => {
+                            btn.classList.remove('border-primary', 'text-primary');
+                            btn.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                        });
+                        button.classList.add('border-primary', 'text-primary');
+                        button.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                        tabContents.forEach(content => {
+                            if (content.id === `tab-content-${tabName}`) {
+                                content.classList.remove('hidden');
+                            } else {
+                                content.classList.add('hidden');
+                            }
+                        });
+                    });
                 });
-                button.classList.add('border-primary', 'text-primary');
-                button.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
-                // Afficher le bon contenu
-                tabContents.forEach(content => {
-                    if (content.id === `tab-content-${tabName}`) {
-                        content.classList.remove('hidden');
-                    } else {
-                        content.classList.add('hidden');
+            }
+
+            // --- GESTION DE LA MODALE / TUNNEL DE VENTE ---
+            const modal = document.getElementById('demo-modal');
+            const closeModalButton = document.getElementById('close-modal-button');
+            const openModalButton = document.getElementById('open-modal-button');
+
+            function openModal(event) {
+                if (event) event.preventDefault();
+                if (modal) {
+                    modal.classList.remove('hidden');
+                }
+            }
+
+            function closeModal() {
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            if (openModalButton) {
+                openModalButton.addEventListener('click', openModal);
+            }
+            
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', closeModal);
+            }
+
+            if (modal) {
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        closeModal();
                     }
                 });
-            });
+            }
         });
-    });
-</script>
+    </script>
 </body>
 </html>
