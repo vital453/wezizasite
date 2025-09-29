@@ -73,8 +73,8 @@
         <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <!-- Logo -->
             <a href="#" class="logo flex items-center gap-2 text-white" id="logo">
-                <img src="/logo2.png" alt="Teams Phénix Logo" class="h-16 w-16 md:h-20 md:w-20 object-contain">
-                <span class="text-xl font-bold">Teams Phénix</span>
+                <img src="/logo2.png" alt="Team Phénix Logo" class="h-16 w-16 md:h-20 md:w-20 object-contain">
+                <span class="text-xl font-bold">Team Phénix</span>
             </a>
             
             <!-- Menu Desktop -->
@@ -402,7 +402,7 @@
                      <div class="bg-light-bg p-8 rounded-xl border border-gray-100 fade-in-up">
                         <i class="fa-solid fa-quote-left text-3xl text-primary/30"></i>
                         <blockquote class="mt-4 text-gray-600 italic">
-                            "L'équipe de Teams Phénix est réactive et professionnelle. La mise en place du nouveau CRM s'est faite sans heurts..."
+                            "L'équipe de Team Phénix est réactive et professionnelle. La mise en place du nouveau CRM s'est faite sans heurts..."
                         </blockquote>
                          <footer class="mt-6 pt-6 border-t border-gray-200 flex items-center gap-4">
                             <img class="w-12 h-12 rounded-full object-cover" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sophie Moreau">
@@ -692,7 +692,7 @@
         <div class="container mx-auto px-4 sm:px-6 py-12">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="col-span-1 md:col-span-1">
-                    <h3 class="text-xl font-bold text-gray-900">Teams Phénix</h3>
+                    <h3 class="text-xl font-bold text-gray-900">Team Phénix</h3>
                     <p class="mt-2 text-sm">Experts en Gestion de la Relation Client.</p>
                 </div>
                 <div>
@@ -720,7 +720,7 @@
                 </div>
             </div>
             <div class="mt-12 border-t border-gray-200 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm">
-                <p>&copy; 2025 Teams Phénix. Tous droits réservés.</p>
+                <p>&copy; 2025 Team Phénix. Tous droits réservés.</p>
                  <div class="mt-4 sm:mt-0 flex space-x-4">
                     <a href="#" class="text-gray-500 hover:text-primary"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="text-gray-500 hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
@@ -729,17 +729,22 @@
         </div>
     </footer>
 
-        <!-- =============================================== -->
-    <!--            MODALE / TUNNEL DE VENTE             -->
-    <!-- =============================================== -->
-    <div id="demo-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[1001]">
-        <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl relative transform transition-all">
-            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800">
-                <i class="fa-solid fa-times text-2xl"></i>
-            </button>
+       <div id="demo-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[1001]">
+    <!-- Conteneur de la modale -->
+    <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl relative transform transition-all overflow-hidden">
+        
+        <!-- Bouton de fermeture (toujours visible) -->
+        <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 z-10">
+            <i class="fa-solid fa-times text-2xl"></i>
+        </button>
+
+        <!-- CONTENU DU FORMULAIRE (visible par défaut) -->
+        <div id="form-content">
             <h2 class="text-2xl font-bold text-gray-900">Demander une démo</h2>
             <p class="mt-2 text-gray-600">Laissez-nous vos informations et nous vous recontacterons dans les plus brefs délais.</p>
-            <form action="https://formspree.io/f/mandrkpb" method="POST" class="mt-6 space-y-4">
+            
+            <!-- On ajoute un id="demo-form" au formulaire -->
+            <form id="demo-form" action="https://formspree.io/f/mandrkpb" method="POST" class="mt-6 space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
@@ -778,181 +783,114 @@
                 </div>
             </form>
         </div>
+
+        <!-- CONTENU DU MESSAGE DE SUCCÈS (caché par défaut) -->
+        <div id="success-message" class="hidden text-center py-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
+                <i class="fa-solid fa-check text-3xl text-green-600"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">Merci !</h2>
+            <p class="mt-2 text-gray-600">Votre demande a bien été envoyée. Notre équipe vous recontactera très prochainement.</p>
+            <button id="close-modal-success-button" class="mt-8 w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-md transition-colors">
+                Fermer
+            </button>
+        </div>
     </div>
+</div>
 
-   <!-- =============================================================== -->
-    <!-- SCRIPT COMPLET ET CORRIGÉ (à remplacer à la fin de votre page) -->
-    <!-- =============================================================== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            // --- GESTION DU HEADER ET DU MENU MOBILE ---
-            const header = document.getElementById('header');
-            const logo = document.getElementById('logo');
-            const navLinksDesktop = document.getElementById('nav-links')?.getElementsByTagName('a');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenuIcon = mobileMenuButton?.querySelector('i');
-            const mobileMenu = document.getElementById('mobile-menu');
+   <!-- =============================================== -->
+<!--            JAVASCRIPT COMPLET ET FINAL          -->
+<!-- =============================================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- GESTION DU MENU MOBILE (FASTERMESSAGE) ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const navLinks = document.getElementById('nav-links');
 
-            function handleScroll() {
-                if (window.scrollY > 50) {
-                    header.classList.add('header-scrolled');
-                    logo.classList.remove('text-white');
-                    logo.classList.add('text-gray-900');
-                    if (mobileMenuIcon) {
-                        mobileMenuIcon.classList.remove('text-white');
-                        mobileMenuIcon.classList.add('text-gray-900');
-                    }
-                    if (navLinksDesktop) {
-                        for(let link of navLinksDesktop) {
-                            link.classList.add('text-gray-700', 'hover:text-primary');
-                            link.classList.remove('text-white');
-                        }
-                    }
-                } else {
-                    header.classList.remove('header-scrolled');
-                    logo.classList.add('text-white');
-                    logo.classList.remove('text-gray-900');
-                    if (mobileMenuIcon) {
-                        mobileMenuIcon.classList.add('text-white');
-                        mobileMenuIcon.classList.remove('text-gray-900');
-                    }
-                    if (navLinksDesktop) {
-                        for(let link of navLinksDesktop) {
-                            link.classList.remove('text-gray-700', 'hover:text-primary');
-                            link.classList.add('text-white');
-                        }
-                    }
-                }
-            }
-            window.addEventListener('scroll', handleScroll);
-            handleScroll();
-
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function () {
-                    const isMenuOpen = !mobileMenu.classList.contains('hidden');
-                    mobileMenu.classList.toggle('hidden');
-                    document.body.classList.toggle('overflow-hidden', !isMenuOpen);
-                    if (mobileMenuIcon) {
-                        mobileMenuIcon.classList.toggle('fa-bars', isMenuOpen);
-                        mobileMenuIcon.classList.toggle('fa-times', !isMenuOpen);
-                    }
-                });
-            }
-            
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                     mobileMenu.classList.add('hidden');
-                     document.body.classList.remove('overflow-hidden');
-                     if (mobileMenuIcon) {
-                         mobileMenuIcon.classList.remove('fa-times');
-                         mobileMenuIcon.classList.add('fa-bars');
-                     }
-                });
+        if (mobileMenuButton && navLinks) {
+            mobileMenuButton.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
             });
+        }
 
-            // --- ANIMATIONS AU SCROLL ---
-            const elementsToAnimate = document.querySelectorAll('.fade-in-up');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            elementsToAnimate.forEach(element => {
-                observer.observe(element);
-            });
+        // --- GESTION DE LA MODALE / TUNNEL DE VENTE ---
+        const modal = document.getElementById('demo-modal');
+        const openModalButton = document.getElementById('open-modal-button');
+        
+        // Éléments DANS la modale
+        const closeModalButton = document.getElementById('close-modal-button');
+        const closeModalSuccessButton = document.getElementById('close-modal-success-button');
+        const formContent = document.getElementById('form-content');
+        const successMessage = document.getElementById('success-message');
+        const form = document.getElementById('demo-form');
 
-            // --- COMPTEUR DYNAMIQUE ---
-            const counterElement = document.getElementById('counter');
-            if (counterElement) {
-                const animateCounter = (element) => {
-                    const span = element.querySelector('span');
-                    const target = +span.getAttribute('data-target');
-                    if (!span || isNaN(target)) return;
-                    let count = 0;
-                    const duration = 1500;
-                    const stepTime = Math.max(10, Math.floor(duration / target));
-                    const timer = setInterval(() => {
-                        count++;
-                        span.textContent = count;
-                        if (count >= target) {
-                            span.textContent = target;
-                            clearInterval(timer);
-                        }
-                    }, stepTime);
-                }
-                const counterObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounter(entry.target);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-                counterObserver.observe(counterElement);
-            }
-
-            // --- GESTION DES ONGLETS DU BLOG ---
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            if (tabButtons.length > 0 && tabContents.length > 0) {
-                tabButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const tabName = button.getAttribute('data-tab');
-                        tabButtons.forEach(btn => {
-                            btn.classList.remove('border-primary', 'text-primary');
-                            btn.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
-                        });
-                        button.classList.add('border-primary', 'text-primary');
-                        button.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
-                        tabContents.forEach(content => {
-                            if (content.id === `tab-content-${tabName}`) {
-                                content.classList.remove('hidden');
-                            } else {
-                                content.classList.add('hidden');
-                            }
-                        });
-                    });
-                });
-            }
-
-            // --- GESTION DE LA MODALE / TUNNEL DE VENTE ---
-            const modal = document.getElementById('demo-modal');
-            const closeModalButton = document.getElementById('close-modal-button');
-            const openModalButton = document.getElementById('open-modal-button');
-
-            function openModal(event) {
-                if (event) event.preventDefault();
-                if (modal) {
-                    modal.classList.remove('hidden');
-                }
-            }
-
-            function closeModal() {
-                if (modal) {
-                    modal.classList.add('hidden');
-                }
-            }
-
-            if (openModalButton) {
-                openModalButton.addEventListener('click', openModal);
-            }
-            
-            if (closeModalButton) {
-                closeModalButton.addEventListener('click', closeModal);
-            }
-
+        function openModal(event) {
+            event.preventDefault();
             if (modal) {
-                modal.addEventListener('click', function(event) {
-                    if (event.target === modal) {
-                        closeModal();
-                    }
-                });
+                modal.classList.remove('hidden');
             }
-        });
-    </script>
+        }
+
+        function closeModal() {
+            if (modal) {
+                modal.classList.add('hidden');
+                setTimeout(() => {
+                    if (formContent) formContent.classList.remove('hidden');
+                    if (successMessage) successMessage.classList.add('hidden');
+                    if (form) form.reset();
+                }, 300);
+            }
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            
+            try {
+                // LA CORRECTION EST SUR LA LIGNE SUIVANTE
+                const response = await fetch(event.target.getAttribute('action'), {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    if (formContent) formContent.classList.add('hidden');
+                    if (successMessage) successMessage.classList.remove('hidden');
+                } else {
+                    alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer.");
+                }
+            } catch (error) {
+                alert("Une erreur réseau s'est produite. Veuillez vérifier votre connexion.");
+            }
+        }
+
+        // Assigner les événements
+        if (openModalButton) {
+            openModalButton.addEventListener('click', openModal);
+        }
+        
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', closeModal);
+        }
+
+        if (closeModalSuccessButton) {
+            closeModalSuccessButton.addEventListener('click', closeModal);
+        }
+
+        if (form) {
+            form.addEventListener("submit", handleSubmit);
+        }
+
+        if (modal) {
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
