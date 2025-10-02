@@ -762,7 +762,7 @@
             <p class="mt-2 text-gray-600">Laissez-nous vos informations et nous vous recontacterons dans les plus brefs délais.</p>
             
             <!-- On ajoute un id="demo-form" au formulaire -->
-            <form id="demo-form" action="https://formspree.io/f/mandrkpb" method="POST" class="mt-6 space-y-4">
+            <form id="demo-form" class="mt-6 space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
@@ -904,27 +904,49 @@
         }
 
         async function handleSubmit(event) {
-            event.preventDefault();
-            const data = new FormData(event.target);
-            
-            try {
-                // LA CORRECTION EST SUR LA LIGNE SUIVANTE
-                const response = await fetch(event.target.getAttribute('action'), {
-                    method: form.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
+    event.preventDefault(); // Empêche le rechargement de la page
+    const form = event.target;
+    const data = new FormData(form);
 
-                if (response.ok) {
-                    if (formContent) formContent.classList.add('hidden');
-                    if (successMessage) successMessage.classList.remove('hidden');
-                } else {
-                    alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer.");
-                }
-            } catch (error) {
-                alert("Une erreur réseau s'est produite. Veuillez vérifier votre connexion.");
-            }
+    // On récupère la valeur du bouton qui a été cliqué
+    const action = document.activeElement.value || 'Action non spécifiée';
+    data.append('action', action);
+    
+    // On transforme les données du formulaire en un objet simple
+    const formDataObject = Object.fromEntries(data.entries());
+
+    // L'URL de votre nouvelle API
+    const backendUrl = 'https://backend.teamphenix229.com/api.php';
+
+    try {
+        // On envoie les données à notre backend en utilisant la méthode POST
+        const response = await fetch(backendUrl, {
+            method: 'POST',
+            headers: {
+                // On précise qu'on envoie du JSON
+                'Content-Type': 'application/json' 
+            },
+            // On convertit notre objet JavaScript en une chaîne de caractères JSON
+            body: JSON.stringify(formDataObject) 
+        });
+
+        // On récupère la réponse du backend (qui est aussi en JSON)
+        const result = await response.json();
+
+        if (response.ok) { // Le statut HTTP est 2xx (succès)
+            // On affiche le message de succès
+            if (formContent) formContent.classList.add('hidden');
+            if (successMessage) successMessage.classList.remove('hidden');
+        } else {
+            // Le backend a renvoyé une erreur, on l'affiche
+            alert("Erreur: " + result.message);
         }
+    } catch (error) {
+        // Une erreur réseau est survenue (pas de connexion, etc.)
+        console.error("Erreur lors de la requête:", error);
+        alert("Une erreur réseau est survenue. Veuillez réessayer.");
+    }
+}
 
         // Assigner les événements
         if (openModalButton) {
