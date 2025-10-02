@@ -824,7 +824,8 @@
         
         // --- GESTION DU MENU MOBILE (FASTERMESSAGE) ---
         const header = document.getElementById('header');
-        const logo = document.getElementById('logo');
+        const logoLink = document.getElementById('logo'); // Le lien <a> qui contient le logo
+        const logoImg = logoLink.querySelector('img'); // L'image <img> du logo
         const navLinks = document.querySelectorAll('#nav-links a'); // Sélectionne tous les liens de navigation
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -842,13 +843,14 @@
         }
 
         // --- GESTION DU HEADER AU SCROLL ---
-        if (header && logo && navLinks && mobileMenuButton) {
+        if (header && logoLink && logoImg && navLinks && mobileMenuButton) {
             window.addEventListener('scroll', function () {
                 if (window.scrollY > 50) { // Quand l'utilisateur a scrollé de plus de 50px
                     header.classList.add('header-scrolled', 'bg-white', 'text-gray-800', 'shadow-md');
                     header.classList.remove('bg-transparent', 'text-white');
-                    logo.classList.remove('text-white');
-                    logo.classList.add('text-gray-800'); // Ajoute la couleur de texte pour le logo
+                    logoLink.classList.remove('text-white');
+                    logoLink.classList.add('text-gray-800'); // Ajoute la couleur de texte pour le logo
+                    logoImg.src = '/logo1.png'; // Change le logo pour la version sombre
                     navLinks.forEach(link => {
                         link.classList.remove('text-white', 'hover:text-gray-300');
                         link.classList.add('text-gray-700', 'hover:text-primary');
@@ -859,8 +861,9 @@
                 } else {
                     header.classList.remove('header-scrolled', 'bg-white', 'text-gray-800', 'shadow-md');
                     header.classList.add('bg-transparent', 'text-white');
-                    logo.classList.add('text-white');
-                    logo.classList.remove('text-gray-800'); // Retire la couleur de texte du logo
+                    logoLink.classList.add('text-white');
+                    logoLink.classList.remove('text-gray-800'); // Retire la couleur de texte du logo
+                    logoImg.src = '/logo2.png'; // Remet le logo par défaut (clair)
                     navLinks.forEach(link => {
                         link.classList.remove('text-gray-700', 'hover:text-primary');
                         link.classList.add('text-white', 'hover:text-gray-300');
